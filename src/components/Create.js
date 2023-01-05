@@ -1,13 +1,13 @@
 import React from "react";
 import {
   Button,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
+  // FormControl,
+  // IconButton,
+  // InputAdornment,
+  // InputLabel,
+  // OutlinedInput,
   Stack,
-  Typography,
+  // Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -19,16 +19,13 @@ const Create = () => {
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [title1, setTitle1] = useState("");
-  const [title2, setTitle2] = useState("");
-  const todoList = [{ title1, title2 }];
 
   const history = useHistory();
 
   const submitHandler = (e) => {
     e.preventDefault();
     const blog = { name, username, phone, email, todoList };
-    // console.log(blog);
+    console.log(blog);
     fetch("http://localhost:8000/todo-user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -41,11 +38,21 @@ const Create = () => {
 
   const [todoBox, setTodoBox] = useState([]);
 
+  const [title, setTitle] = useState("");
+  console.log(title);
+
+  const todoList = [{ title }];
+  console.log(todoList);
+
+  // const [title1, setTitle1] = useState("");
+  // const [title2, setTitle2] = useState("");
+  // const todoList = [];
+
   const editHandler = (e) => {
     e.preventDefault();
 
     setTodoBox([...todoBox, []]);
-
+    // console.log(todoBox);
     console.log("Todo Clicked");
   };
 
@@ -76,22 +83,11 @@ const Create = () => {
         {todoBox.map((data, i) => {
           return (
             <div>
-              <Typography variant='body2'>Todo Title {i + 1}</Typography>
-              <FormControl sx={{ width: "100%" }}>
-                <OutlinedInput
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton>
-                        <DeleteOutline size='small' />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label='Password'
-                />
-              </FormControl>
-              {/* <label>Todo Title {i + 1}</label>
-              <input />
-              <button> x </button> */}
+              <label>Todo Title {i + 1}</label>
+              <input onChange={(e) => setTitle(e.target.value)} />
+              <button>
+                <DeleteOutline size='small' />
+              </button>
             </div>
           );
         })}
@@ -122,3 +118,21 @@ const Create = () => {
 };
 
 export default Create;
+
+// MUI
+
+{
+  /* <Typography variant='body2'>Todo Title {i + 1}</Typography>
+              <FormControl sx={{ width: "100%" }}>
+                <OutlinedInput
+                  endAdornment={
+                    <InputAdornment position='end'>
+                      <IconButton>
+                        <DeleteOutline size='small' />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label='Password'
+                />
+              </FormControl> */
+}

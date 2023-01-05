@@ -50,6 +50,26 @@
         }
       ],
       "id": 3
+    },
+    {
+      "name": "Hello",
+      "username": "hithere",
+      "phone": "097898798",
+      "email": "hellohi@gmail.com",
+      "todo": [],
+      "id": 4
+    },
+    {
+      "name": "HayU",
+      "username": "uhayy",
+      "phone": "0979898979",
+      "email": "hay@gmail.com",
+      "todoList": [
+        {
+          "title": "hi there"
+        }
+      ],
+      "id": 5
     }
   ]
 }
