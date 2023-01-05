@@ -57,30 +57,24 @@ import { Link, useParams } from "react-router-dom";
 // import { useParams } from "react-router-dom";
 import { getDetail } from "../redux/features/detailSlice";
 import { useHistory } from "react-router-dom";
-
+import { GetUserDetail } from "../services/detail.service";
 const Details = () => {
   const { id } = useParams();
-  const { detail, loading } = useSelector((state) => state.data);
-  const dispatch = useDispatch();
-  const history = useHistory();
 
-  useEffect(() => {
-    dispatch(getDetail(id));
-  }, []);
-  console.log(detail);
+const {data :detail,isLoading ,error} = GetUserDetail(id);
 
-  const deleteHandler = () => {
-    fetch(`http://localhost:8000/todo-user/${detail.id}`, {
-      method: "DELETE",
-    }).then(() => {
-      console.log("Data Deleted");
-      history.push("/");
-    });
-  };
+  // const deleteHandler = () => {
+  //   fetch(`http://localhost:8000/todo-user/${detail.id}`, {
+  //     method: "DELETE",
+  //   }).then(() => {
+  //     console.log("Data Deleted");
+  //     history.push("/");
+  //   });
+  // };
 
   return (
     <>
-      {loading && <h2>Loading Data...</h2>}
+      {isLoading && <h2>Loading Data...</h2>}
       {detail && (
         <Card sx={{ maxWidth: 1200 }}>
           <CardContent>
@@ -112,7 +106,7 @@ const Details = () => {
             })}
           </CardContent>
           <CardActions>
-            <Button size='small' color='warning' onClick={deleteHandler}>
+            <Button size='small' color='warning' >
               Delete
             </Button>
             <Link to={`/todo-user/${id}/edit`}>

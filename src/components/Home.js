@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../redux/features/userSlice";
+import { GetUsersData } from "../services/userdata.service";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -14,27 +16,10 @@ import {
 import PreviewIcon from "@mui/icons-material/Preview";
 
 const Home = () => {
-  const { data, isLoading } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUserData());
-  }, []);
-
-  console.log(data);
+const { id } = useParams();
+const{data,isLoading,error} = GetUsersData(id);
+console.log(data)
   return (
-    // <Box>
-
-    //   {data?.map((usr) => (
-    //     <div>
-    //       <h2>{usr.username}</h2>
-    //       <Link to={`/todo-user/${usr.id}`}>
-    //         <Button variant='contained' size='small'>
-    //           Details
-    //         </Button>
-    //       </Link>
-    //     </div>
-    //   ))}
-    // </Box>
     <Box
       sx={{
         width: "100%",
@@ -47,15 +32,15 @@ const Home = () => {
 
       {data &&
         data.map((usr) => (
-          <nav aria-label='main mailbox folders'>
-            <Link to={`/todo-user/${usr.id}`}>
+          <nav key={usr?.id} aria-label='main mailbox folders'>
+            <Link to={`/todo-user/${usr?.id}`}>
               <List>
                 <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemText
                       primary={
                         <Typography variant='h5' color='info'>
-                          {usr.username}
+                          {usr?.username}
                         </Typography>
                       }
                     />

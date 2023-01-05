@@ -14,18 +14,31 @@ export const getDetail = createAsyncThunk("detail/getDetail", async (id) => {
   );
 });
 
-const detailSlice = createSlice({
+export const detailSlice = createSlice({
   name: "detail",
   initialState,
-  extraReducers: {
-    [getDetail.pending]: (state) => {
-      state.loading = true;
-    },
-    [getDetail.fulfilled]: (state, action) => {
-      state.loading = false;
+  reducers: {
+    setDetailData: (state, action) => {
       state.detail = action.payload;
     },
   },
 });
 
+export const { setDetailData } = detailSlice.actions;
 export default detailSlice.reducer;
+
+// const detailSlice = createSlice({
+//   name: "detail",
+//   initialState,
+//   extraReducers: {
+//     [getDetail.pending]: (state) => {
+//       state.loading = true;
+//     },
+//     [getDetail.fulfilled]: (state, action) => {
+//       state.loading = false;
+//       state.detail = action.payload;
+//     },
+//   },
+// });
+
+// export default detailSlice.reducer;
