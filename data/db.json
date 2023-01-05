@@ -1,0 +1,55 @@
+{
+  "todo-user": [
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "todolist": [
+        {
+          "uuid": 1,
+          "title": "go to gym"
+        },
+        {
+          "uuid": 2,
+          "title": "sleep"
+        }
+      ],
+      "phone": "1-770-736-8031 x56442"
+    },
+    {
+      "id": 2,
+      "name": "Ervin Howell",
+      "username": "Antonette",
+      "email": "Shanna@melissa.tv",
+      "todolist": [
+        {
+          "uuid": 1,
+          "title": "play game"
+        },
+        {
+          "uuid": 2,
+          "title": "eat"
+        }
+      ],
+      "phone": "010-692-6593 x09125"
+    },
+    {
+      "name": "Khant Kyaw1",
+      "username": "Pandora ra",
+      "phone": "987778698",
+      "email": "kk123@gmail.com",
+      "todolist": [
+        {
+          "uuid": 1,
+          "title": "go out"
+        },
+        {
+          "uuid": 2,
+          "title": "coding"
+        }
+      ],
+      "id": 3
+    }
+  ]
+}
