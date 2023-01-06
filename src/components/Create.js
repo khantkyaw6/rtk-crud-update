@@ -9,20 +9,39 @@ const Create = () => {
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+
   const [todoBox, setTodoBox] = useState([]);
   const history = useHistory();
+  const [counter, setCounter] = useState(0);
   const todolist = todoBox;
 
   // const [title, setTitle] = useState("");
 
+  const onChangeHandler = (e) => {
+    const abc = {};
+    abc[e.target.className] = e.target.value;
+
+    console.log(abc);
+    setTodoBox([...todoBox, abc]);
+
+    console.log(todoBox);
+    // const abc = {};
+    // abc[e.target.className] = e.target.value;
+    // setTodoBox({ ...counter, ...abc });
+    // console.log(todoBox);
+  };
+
   const addHandler = () => {
-    setTodoBox([...todoBox, {}]);
-    console.log("Add Input Field");
+    setCounter(counter + 1);
+    console.log(counter);
+    // setTodoBox([...todoBox, {}]);
+    // console.log("Add Input Field");
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     const blog = { name, username, phone, email, todolist };
+
     console.log(blog);
     fetch("http://localhost:8000/todo-user", {
       method: "POST",
@@ -58,7 +77,7 @@ const Create = () => {
           required
           onChange={(e) => setPhone(e.target.value)}
         />
-        {todoBox.map((data, i) => {
+        {/* {todoBox.map((data, i) => {
           return (
             <div key={i}>
               <label>Todo Title {i + 1}</label>
@@ -74,7 +93,32 @@ const Create = () => {
               </button>
             </div>
           );
+        })} */}
+
+        {Array.from(Array(counter)).map((c, i) => {
+          return (
+            <div key={i}>
+              <label>Todo Title {i + 1}</label>
+              <input type='text' onChange={onChangeHandler} className='title' />
+              <button>
+                <DeleteOutline size='small' />
+              </button>
+            </div>
+            // <input
+            //   key={c}
+            //   placeholder='Todo Title'
+            //   className={index}
+            //   type='text'
+            // />
+          );
         })}
+        {/* {Array(counter).map((c, index) => {
+          return (
+            <div>
+              <input type='text' />
+            </div>
+          );
+        })} */}
         <Stack direction='row' spacing={2}>
           <Button onClick={addHandler} variant='contained' m={14} size='small'>
             Add Todo
