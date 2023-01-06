@@ -3,27 +3,59 @@ import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { DeleteOutline } from "@mui/icons-material";
+import { useRef } from "react";
 
 const Create = () => {
+
+  const [inputValues, setInputValues] = useState({});
+    const composeData = (id, data) => {
+      return {
+   
+    
+            uuid: id,
+            title: data,
+         
+       
+      };
+    };
+
+    
+   const data = Object.keys(inputValues).map((key,index)=> composeData(key,inputValues[key]));
+   console.log(data)
+
+   
+  const [counter, setCounter] = useState(0);
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [todoBox, setTodoBox] = useState([]);
   const history = useHistory();
-  const todolist = todoBox;
-
-  // const [title, setTitle] = useState("");
+  
 
   const addHandler = () => {
-    setTodoBox([...todoBox, {}]);
-    console.log("Add Input Field");
+    // setTodoBox([...todoBox, {}]);
+    // console.log("Add Input Field");
+
+    setCounter(counter + 1);
+  };
+
+  const handleOnChange = (e) => {
+    const abc = {};
+    abc[counter] = e.target.value;
+    console.log(abc);
+    setInputValues({ ...inputValues, ...abc });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const blog = { name, username, phone, email, todolist };
-    console.log(blog);
+    const blog = {
+      name,
+      username,
+      phone,
+      email,
+     todolist:[data]
+    };
+
     fetch("http://localhost:8000/todo-user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,51 +67,35 @@ const Create = () => {
   };
 
   return (
-    <div className='create'>
+    <div className="create">
       <h2>Create a new user</h2>
       <form onSubmit={submitHandler}>
         <label>Real Name:</label>
-        <input type='text' required onChange={(e) => setName(e.target.value)} />
+        <input type="text" required onChange={(e) => setName(e.target.value)} />
         <label>Username:</label>
-        <input
-          type='text'
-          required
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <input type="text" required onChange={(e) => setUsername(e.target.value)} />
         <label>Email:</label>
-        <input
-          type='email'
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <input type="email" required onChange={(e) => setEmail(e.target.value)} />
         <label>Phone:</label>
-        <input
-          type='phone'
-          required
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        {todoBox.map((data, i) => {
+        <input type="phone" required onChange={(e) => setPhone(e.target.value)} />
+
+        {Array.from(Array(counter)).map((c, index) => {
           return (
-            <div key={i}>
-              <label>Todo Title {i + 1}</label>
-              <input
-                onChange={(e) => {
-                  setTodoBox({
-                    title: e.target.value,
-                  });
-                }}
-              />
+            <div key={index}>
+              <label>Todo Title {index + 1}</label>
+              <input onChange={handleOnChange} />
               <button>
-                <DeleteOutline size='small' />
+                <DeleteOutline size="small" />
               </button>
             </div>
           );
         })}
-        <Stack direction='row' spacing={2}>
-          <Button onClick={addHandler} variant='contained' m={14} size='small'>
+     
+        <Stack direction="row" spacing={2}>
+          <Button onClick={addHandler} variant="contained" m={14} size="small">
             Add Todo
           </Button>
-          <Button variant='contained' size='small' type='submit'>
+          <Button variant="contained" size="small" type="submit">
             Create
           </Button>
         </Stack>
