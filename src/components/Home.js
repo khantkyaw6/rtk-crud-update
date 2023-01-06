@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "../redux/features/userSlice";
 import { Link } from "react-router-dom";
@@ -21,6 +21,7 @@ const Home = () => {
   }, []);
 
   console.log(data);
+
   return (
     // <Box>
 
@@ -47,7 +48,7 @@ const Home = () => {
 
       {data &&
         data.map((usr) => (
-          <nav aria-label='main mailbox folders'>
+          <nav key={usr.id} aria-label='main mailbox folders'>
             <Link to={`/todo-user/${usr.id}`}>
               <List>
                 <ListItem disablePadding>

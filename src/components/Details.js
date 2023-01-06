@@ -76,6 +76,7 @@ const Details = () => {
       console.log("Data Deleted");
       history.push("/");
     });
+    console.log("Data Deleted");
   };
 
   return (
@@ -107,9 +108,10 @@ const Details = () => {
               } */}
             {/* <Typography variant='h5'>{detail.todoList.title1}</Typography>
             <Typography variant='h5'>{detail.todoList.title2}</Typography> */}
-            {detail.todolist.map((todo) => {
-              return <Typography key={todo.title}>{todo.title}</Typography>;
-            })}
+            {detail &&
+              detail.todolist.map((todo) => (
+                <Typography key={todo.id}>{todo.title}</Typography>
+              ))}
           </CardContent>
           <CardActions>
             <Button size='small' color='warning' onClick={deleteHandler}>
